@@ -1,0 +1,15 @@
+﻿@model MvcMovie.Models.ProductList
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Index</h1>
+
+@foreach(var product in Model.Products){
+    <div>@product.Id</div>
+    <div>@product.Description</div>
+    <div></div>
+}
+
