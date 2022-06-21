@@ -13,7 +13,7 @@ namespace MvcMovie.Services
 
         public IWebHostEnvironment WebHostEnvironment { get; set; }
 
-        private string JsonFileName
+        public string JsonFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
         }
