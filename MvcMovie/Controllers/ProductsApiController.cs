@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace MvcMovie.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/ds")]
     [ApiController]
     public class ProductsApiController : ControllerBase
     {

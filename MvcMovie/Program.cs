@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MvcMovie.Data;
 using MvcMovie.Models;
 using MvcMovie.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MvcMovieContext>(options =>
@@ -10,15 +11,26 @@ builder.Services.AddDbContext<MvcMovieContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSqlite<PizzaContext>("Data Source=Pizza.db");
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<JsonProductService>();
+builder.Services.AddTransient<PizzaService>();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
     SeedData.Initialize(services);
+
+    var context = services.GetRequiredService<PizzaContext>();
+    context.Database.EnsureCreated();
+    PizzaInitializer.Initialize(context);
 }
 
 // Configure the HTTP request pipeline.
